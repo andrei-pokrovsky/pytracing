@@ -32,17 +32,17 @@ class TraceWriter(threading.Thread):
 
   def _open_collection(self):
     """Write the opening of a JSON array to the output."""
-    self.output.write(b'[')
+    self.output.write('[')
 
   def _close_collection(self):
     """Write the closing of a JSON array to the output."""
-    self.output.write(b'{}]')  # empty {} so the final entry doesn't end with a comma
+    self.output.write('{}]')  # empty {} so the final entry doesn't end with a comma
 
   def run(self):
     self._open_collection()
     while not self.terminator.is_set() or not self.input.empty():
       item = self.input.get()
-      self.output.write((json.dumps(item) + ',\n').encode('ascii'))
+      self.output.write(json.dumps(item, ensure_ascii=True) + ',\n')
     self._close_collection()
 
 

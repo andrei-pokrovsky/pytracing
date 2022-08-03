@@ -28,7 +28,7 @@ def main():
 
 
 if __name__ == '__main__':
-  with io.open('./trace.out', mode='w', encoding='utf-8') as fh:
+  with io.open('./trace.out', mode='w', encoding="ascii") as fh:
     tp = TraceProfiler(output=fh)
     tp.install()
     main()
@@ -36,6 +36,6 @@ if __name__ == '__main__':
     print('wrote trace.out')
 
   # ensure the output is at least valid JSON
-  with io.open('./trace.out', encoding='utf-8') as fh:
+  with io.open('./trace.out') as fh:
     json.load(fh)
 
